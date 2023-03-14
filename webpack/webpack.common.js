@@ -1,13 +1,6 @@
-const { merge } = require("webpack-merge");
-const commonConfig = require("./webpack.common.js");
-
-module.exports = ({ env }) => {
-    const envConfig = require(`./webpack.${env}.js`);
-    return merge(commonConfig, envConfig);
-};
-/*
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
     entry: path.resolve(__dirname, "..", "./src/index.tsx"),
@@ -35,7 +28,7 @@ module.exports = {
             },
             {
                 test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
-                type: "asset/inine",
+                type: "asset/inline",
             },
         ],
     },
@@ -43,11 +36,15 @@ module.exports = {
         path: path.resolve(__dirname, "..", "./build"),
         filename: "bundle.js",
     },
-    mode: "development",
     plugins: [
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, "..", "./src/index.html"),
         }),
+        /*
+        new CopyPlugin({
+            patterns: [{ from: "source", to: "dest" }],
+        }),
+        */
     ],
+    stats: "errors-only",
 };
-*/
